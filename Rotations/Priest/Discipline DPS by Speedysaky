@@ -1,0 +1,85 @@
+using System.Windows.Forms;
+using Frozen.Helpers;
+
+namespace Frozen.Rotation
+{
+    public class Discipline : CombatRoutine
+    {
+        public override void Initialize()
+        {
+            Log.Write("Welcome to Discipline DPS rotation");
+            Log.Write("Suggested builds: 2111113 ");
+        }
+
+        public override void Stop()
+        {
+            Log.Write("Hope you dont mind if it is bad");
+        }
+
+        public override void Pulse()
+        {
+			    
+                if (WoW.PlayerHealthPercent <= 101 && !WoW.PlayerHasBuff("Power Word: Shield"))
+                    {
+				WoW.CastSpell("Power Word: Shield");
+				 return;
+                    }					
+			            
+           if (WoW.CanCast("Shadow Word: Pain") && !WoW.TargetHasDebuff("Shadow Word: Pain")) //Refresh Shadow Word: Pain
+                    {
+                        WoW.CastSpell("Shadow Word: Pain");
+                        return;
+                    }
+			 if (WoW.CanCast("Schism") && !WoW.IsSpellOnCooldown("Schism"))  //use Schism on CD
+                    {
+                        WoW.CastSpell("Schism");
+                        return;
+                    }
+			if (WoW.CanCast("Penance") && !WoW.IsSpellOnCooldown("Penance"))   //use Penance on CD
+                    {
+                        WoW.CastSpell("Penance");
+                        return;
+                    }
+			if (WoW.CanCast("Power Word: Solace") && !WoW.IsSpellOnCooldown("Power Word: Solace"))  //use on CD
+                    {
+                        WoW.CastSpell("Power Word: Solace");
+                        return;
+                    }
+			if (WoW.CanCast("Divine Star") && !WoW.IsSpellOnCooldown("Divine Star"))  //use on CD
+                    {
+                        WoW.CastSpell("Divine Star");
+                        return;
+                    }
+			if (WoW.CanCast("Smite"))  //Filler
+                    {
+                        WoW.CastSpell("Smite");
+                        return;
+						}
+			if (WoW.CanCast("Light's Wrath") && !WoW.IsSpellOnCooldown("Light's Wrath"))  //use Light's Wrath on CD
+                    {
+                        WoW.CastSpell("Light's Wrath");
+                        return;
+                    }
+        }
+
+        public override Form SettingsForm { get; set; }
+    }
+}
+
+/*
+[AddonDetails.db]
+AddonAuthor=WiNiFiX
+AddonName=Frozen
+WoWVersion=Legion - 70300
+[SpellBook.db]
+Spell,589,Shadow Word: Pain,1
+Spell,214621,Schism,2
+Spell,47540,Penance,3
+Spell,129250,Power Word: Solace,4
+Spell,207948,Light's Wrath,5
+Spell,585,Smite,6
+Spell,17,Power Word: Shield,7
+Spell,110744,Divine Star,8
+Aura,589,Shadow Word: Pain
+Aura,17,Power Word: Shield
+*/
